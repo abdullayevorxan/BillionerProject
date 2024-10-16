@@ -60,6 +60,7 @@ final class RegisterController: UIViewController {
         else {return false}
         return !(name.isEmpty || surname.isEmpty || password.isEmpty || mail.isEmpty)
     }
+    //dnkdjn
     
     @IBAction func textFieldEditingChanged(_ sender: UITextField) {
         switch sender {
