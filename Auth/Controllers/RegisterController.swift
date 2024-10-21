@@ -18,7 +18,8 @@ final class RegisterController: UIViewController {
     @IBOutlet private weak var surnameField: UITextField!
     @IBOutlet private weak var passwordField: UITextField!
     @IBOutlet private weak var mailField: UITextField!
-    private var user: [User] = []
+    private var user: User?
+    var users: [User] = []
     weak var delegate: RegisterControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,9 +48,19 @@ final class RegisterController: UIViewController {
               let password = passwordField.text,
               let mail = mailField.text else {return}
         
-        let user = User(name: name, surname: surname, email: mail, password: password)
+        user = User(name: name, surname: surname, email: mail, password: password)
+        
+        saveUserToDefault(user: user)
+        
+        guard let user = user else {return}
         delegate?.didFinish(user: user)
         navigationController?.popViewController(animated: true)
+    }
+        
+        fileprivate func saveUserToDefault(user: User?)  {
+            UserDefaults.standard.setValue(user?.name, forKey: "name")
+            UserDefaults.standard.setValue(user?.surname, forKey: "surname")
+            UserDefaults.standard.setValue(user?.email, forKey: "email")
         
     }
     fileprivate func checkValidation() -> Bool {
@@ -61,6 +72,7 @@ final class RegisterController: UIViewController {
         return !(name.isEmpty || surname.isEmpty || password.isEmpty || mail.isEmpty)
     }
     //dnkdjn
+    //
     
     @IBAction func textFieldEditingChanged(_ sender: UITextField) {
         switch sender {
@@ -148,12 +160,12 @@ final class RegisterController: UIViewController {
     }
     
     private func isUserExists(fullName: String) -> Bool {
-        return user.contains { $0.surname == fullName }
+        return users.contains { $0.surname == fullName }
     }
     
     private func addUser(surName: String, name:String, number: String, email: String, password: String) {
         let newUser = User(name: name, surname: surName, email: email, password: password)
-        user.append(newUser)
+        users.append(newUser)
     }
     
     private func clearFields() {

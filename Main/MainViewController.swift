@@ -9,7 +9,10 @@ import UIKit
 
 class MainViewController: UIViewController {
     @IBOutlet private weak var collection: UICollectionView!
+    @IBOutlet private weak var nextQuestionBUtton: UIButton!
     private var questions: [Question] = []
+    
+    var currentQuestionIndex = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         generateQuestions()
@@ -25,6 +28,7 @@ class MainViewController: UIViewController {
     fileprivate func configureCollection() {
         collection.delegate = self
         collection.dataSource = self
+        collection.isScrollEnabled = false
         collection.register(UINib(nibName: "AnswerCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "AnswerCollectionViewCell")
     }
     
@@ -32,12 +36,12 @@ class MainViewController: UIViewController {
         //TODO: should use Json
         questions = [
             Question(
-                title: "1+3",
+                title: "150/3",
                 answer: [
                     Answer(title: "1", correct: false),
                     Answer(title: "2", correct: false),
                     Answer(title: "3", correct: false),
-                    Answer(title: "4", correct: true),
+                    Answer(title: "50", correct: true),
                     
                 ]
             ),
@@ -89,10 +93,41 @@ extension MainViewController: UICollectionViewDelegate,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AnswerCollectionViewCell", for: indexPath) as! AnswerCollectionViewCell
         let model = questions[indexPath.row]
         cell.configureCell(model: model)
+        cell.backgroundColor = .gray
         return cell
     }
+    
+    @IBAction func nextQuestionButtonTapped(_ sender: UIButton) {
+            
+            let indexPath = IndexPath(row: 0, section: 0) 
+            if let cell = collection.cellForItem(at: indexPath) as? AnswerTitleCell {
+                let answer = cell.answerLabel.text
+    //            print(answer)
+            }
+            currentQuestionIndex += 1
+        print(currentQuestionIndex)
+            
+            
+            
+            
+            if currentQuestionIndex < questions.count {
+                let indexPath = IndexPath(item: currentQuestionIndex, section: 0)
+                collection.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
+                if currentQuestionIndex == questions.count-1{
+                    nextQuestionBUtton.setTitle("Submit", for:.normal)
+
+                    
+                }
+            } else {
+                let nextVC = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+                navigationController?.pushViewController(nextVC, animated: true)
+                
+            }
+        }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: collectionView.frame.width, height: collectionView.frame.height)
     }
+   
 }

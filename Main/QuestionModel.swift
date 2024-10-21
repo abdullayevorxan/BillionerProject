@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import UIKit
 struct Question {
     let title: String
-    let answer: [Answer]
+    var answer: [Answer]
 }
 
 struct Answer {
     let title: String
     let correct: Bool
+    var colour: UIColor = .clear
 }
