@@ -10,17 +10,20 @@ import UIKit
 class MainViewController: UIViewController {
     @IBOutlet private weak var collection: UICollectionView!
     @IBOutlet private weak var nextQuestionBUtton: UIButton!
+    private var result:[Answer] = []
     private var questions: [Question] = []
     
+    var correctCounter = 0
     var currentQuestionIndex = 0
+    var scores = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         generateQuestions()
         configureView()
-//        UserDefaultsHelper.setInteger(key: "LoginType", value: 2)
+        //        UserDefaultsHelper.setInteger(key: "LoginType", value: 2)
         UserDefaultsHelper.setInteger(key: UserDefaultsKey.loginType.rawValue, value: 2)
     }
-
+    
     fileprivate func configureView() {
         configureCollection()
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -75,7 +78,13 @@ class MainViewController: UIViewController {
             self?.collection.reloadData()
         }
     }
-
+    fileprivate func checkAnswer(answer: Answer) {
+        result.append(answer)
+        print(#function, result.filter({$0.correct}).count)
+        
+        scores = result.filter({$0.correct}).count
+    }
+    
 }
 
 extension MainViewController: UICollectionViewDelegate,
@@ -93,7 +102,9 @@ extension MainViewController: UICollectionViewDelegate,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AnswerCollectionViewCell", for: indexPath) as! AnswerCollectionViewCell
         let model = questions[indexPath.row]
         cell.configureCell(model: model)
-        cell.backgroundColor = .gray
+        cell.callback = { [weak self] answer in
+            self?.checkAnswer(answer: answer)
+        }
         return cell
     }
     
@@ -119,15 +130,19 @@ extension MainViewController: UICollectionViewDelegate,
                     
                 }
             } else {
-                let nextVC = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-                navigationController?.pushViewController(nextVC, animated: true)
                 
+                UserDefaults.standard.setValue(scores, forKey: "scores")
+                
+                let nextVC = storyboard?.instantiateViewController(withIdentifier: "ResultViewControllerTest") as! ResultViewControllerTest
+                navigationController?.pushViewController(nextVC, animated: true)
+                navigationController?.navigationBar.barTintColor = UIColor.green
+           
             }
         }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: collectionView.frame.width, height: collectionView.frame.height)
+        return .init(width: collectionView.frame.width - 48, height: collectionView.frame.height - 24)
     }
    
 }
