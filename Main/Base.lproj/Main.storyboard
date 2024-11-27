@@ -172,11 +172,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sYh-wd-lq4" userLabel="CurveView">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sYh-wd-lq4" userLabel="CurveView">
                                 <rect key="frame" x="0.0" y="196" width="393" height="128"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="178" translatesAutoresizingMaskIntoConstraints="NO" id="EFp-KF-IwJ">
-                                        <rect key="frame" x="27" y="53.999999999999993" width="338" height="20.333333333333336"/>
+                                        <rect key="frame" x="27" y="53.999999999999986" width="338" height="20.333333333333329"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct Answer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQZ-4M-m9V">
                                                 <rect key="frame" x="0.0" y="0.0" width="118.66666666666667" height="20.333333333333332"/>
@@ -195,6 +195,12 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyg-NU-SeD">
+                                <rect key="frame" x="157" y="365" width="79" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Restart"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0a6-IX-PgM"/>
                         <color key="backgroundColor" systemColor="systemGreenColor"/>

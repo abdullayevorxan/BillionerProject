@@ -15,28 +15,23 @@ class ResultViewControllerTest: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         curveViewCheck()
         setResult()
         
     }
     
-    
-    
     func curveViewCheck(){
         curveView.layer.cornerRadius = 10
-        
-        
-        
+      
     }
   
     
     func setResult() {
- //       let name = UserDefaults.standard.string(forKey: "enterNameTF")
+ 
         let score = UserDefaults.standard.string(forKey: "scores")
         
         
-  //      nameLabel.text = name
+
         scoreLabel.text = score
         
         

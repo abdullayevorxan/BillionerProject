@@ -49,12 +49,41 @@ class MainViewController: UIViewController {
                 ]
             ),
             Question(
-                title: "2+3",
+                title: "120/3",
                 answer: [
                     Answer(title: "1", correct: false),
                     Answer(title: "2", correct: false),
                     Answer(title: "3", correct: false),
+                    Answer(title: "40", correct: true),
+                    
+                ]
+            ),
+            Question(
+                title: "180/3",
+                answer: [
+                    Answer(title: "1", correct: false),
+                    Answer(title: "2", correct: false),
+                    Answer(title: "3", correct: false),
+                    Answer(title: "60", correct: true),
+                    
+                ]
+            ),
+            Question(
+                title: "2+3",
+                answer: [
+                    Answer(title: "1", correct: false),
                     Answer(title: "5", correct: true),
+                    Answer(title: "3", correct: false),
+                    Answer(title: "4", correct: false),
+                    
+                ]
+            ), Question(
+                title: "23+22",
+                answer: [
+                    Answer(title: "1", correct: false),
+                    Answer(title: "2", correct: false),
+                    Answer(title: "3", correct: false),
+                    Answer(title: "45", correct: true),
                     
                 ]
             ),
@@ -110,13 +139,13 @@ extension MainViewController: UICollectionViewDelegate,
     
     @IBAction func nextQuestionButtonTapped(_ sender: UIButton) {
             
-            let indexPath = IndexPath(row: 0, section: 0) 
-            if let cell = collection.cellForItem(at: indexPath) as? AnswerTitleCell {
-                let answer = cell.answerLabel.text
-    //            print(answer)
-            }
+           // let indexPath = IndexPath(row: 0, section: 0)
+          // if let cell = collection.cellForItem(at: indexPath) as? AnswerTitleCell {
+          // let answer = cell.answerLabel.text
+    //    //    print(answer)
+          // }
             currentQuestionIndex += 1
-        print(currentQuestionIndex)
+        //print(currentQuestionIndex)
             
             
             

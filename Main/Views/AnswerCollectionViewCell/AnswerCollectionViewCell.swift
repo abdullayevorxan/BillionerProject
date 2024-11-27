@@ -33,6 +33,8 @@ class AnswerCollectionViewCell: UICollectionViewCell {
     
     func configureCell(model: Question) {
         question = model
+        oneTouch = false
+        checkAnswer = true
         reloadCollection()
     }
     
@@ -84,7 +86,6 @@ extension AnswerCollectionViewCell: UICollectionViewDelegate,
     
     
 /*    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard !oneTouch else {return}
         
         oneTouch = true
         guard let answer = question?.answer[indexPath.row] else {return}
@@ -117,14 +118,16 @@ extension AnswerCollectionViewCell: UICollectionViewDelegate,
     }
     */
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            guard !oneTouch else {return}
+
+            oneTouch = true
             guard let answer = question?.answer[indexPath.row] else {return}
             //setColor(index: indexPath.row)
             let cell = collection.cellForItem(at: indexPath) as! AnswerTitleCell
             
             if checkAnswer {
                 
-                cell.answerLabel.backgroundColor = answer.correct ? .green : .red
-                //reloadCollection()
+                cell.backgroundColor = answer.correct ? .green : .red
                  checkAnswer = false
             }
             callback?(answer)
